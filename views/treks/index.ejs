@@ -1,0 +1,32 @@
+<%include ../partials/header.ejs %>
+    <div class="container">
+        <header class="jumbotron">
+            <div class="container">
+                <h1><span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Welcome to TrekAdvisor !</h1>
+                <p>View our hand-picked trekking spots from all over the world</p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/treks/new">Add New Trekking Spot</a>
+               </p>
+            </div>
+        </header>
+        <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+            
+            <%if (trek.length >0){
+            for(var i=0;i<trek.length;i++)
+        {%>     <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail"><img src="<%=trek[i].image%>">
+                        <div clas="caption">
+                            <h4>
+                                <%=trek[i].name%>
+                            </h4>
+                        </div>
+                        <p><a href="/treks/<%=trek[i].id%>" class="btn btn-primary">More Info</a> </p>
+                    </div>
+                 </div>
+                <%}}
+                else{%>
+                    <h1>No Trekking Spots Found</h1>
+                <%}%>
+        </div>
+    </div>
+    <% include ../partials/footer.ejs%>
