@@ -7,7 +7,7 @@ var middleware = require("../middleware/index.js");
 router.use(methodOverride("_method"));
 
 router.get("/", function(req, res) {
-    req.user.getTreks().then(treks=>{
+    Trek.findAll().then(treks=>{
           console.log('treks fetched'); 
           res.render("treks/index", { trek: treks,
              //currentUser: req.user 
