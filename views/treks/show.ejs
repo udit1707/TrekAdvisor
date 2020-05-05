@@ -14,8 +14,8 @@
                 <div class="thumbnail">
                     <img src="<%=trek.image%>" class="img-responsive">
                     <div class="caption-full">
-                        <h4 class="pull-right">
-                            <%= trek.price %>
+                        <h4 class="pull-right ">
+                            $<%= trek.price %>/-
                         </h4>
                         <h4>
                             <a href="#">
@@ -25,13 +25,18 @@
                         <p>
                             <%=trek.description%>
                         </p>
-                     
+                        <hr>
+                        <p><em>Submitted by</em>
+                            <%=trek.creator%>
+                        </p>
+                        <%if(currentUser && trek.userId === currentUser.id){%>
                             <a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/edit">Edit</a>
                             <form class="deleteForm" action="/treks/<%=trek.id%>?_method=DELETE" method="POST">
                                 <input type="hidden" name="trekId" value="<%=trek.id%>">                                   
                                 <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                             </form>
-                            
+                            <%}%>
+
                         </div>
                             
                     </div>
@@ -45,16 +50,18 @@
                                 {%>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <strong>Anonymous</strong>
-                                            <span class="pull-right">10 days ago</span>
+                                            <strong><%=comments[i].creator%></strong>
+                                            <span class="pull-right"><%=moment(comments[i].createdAt).fromNow()%></span>
                                             <p>
                                                 <%=comments[i].text%>
                                             </p>
+                                            <%if(currentUser && comments[i].userId === currentUser.id){%>
+
                                                  <a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/comments/<%=comments[i].id%>/edit">Edit</a>
                                                 <form class="deleteForm" action="/treks/<%= trek.id %>/comments/<%=comments[i].id %>?_method=DELETE" method="POST">
                                                     <button class="btn btn-xs btn-danger">Delete</button>
                                                 </form>
-                                             
+                                                <%}%>
                                         </div>
                                     </div>
             

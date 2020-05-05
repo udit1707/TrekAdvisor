@@ -9,7 +9,9 @@ const Comment=sequelize.define('comment',{
             allowNull: false,
             primaryKey: true
           },
-    text:Sequelize.STRING
+    text:Sequelize.STRING,
+    creator:Sequelize.STRING,
+    createdAt:Sequelize.STRING
 });
 module.exports=Comment;
 

@@ -22,7 +22,8 @@ const Trek = sequelize.define('trek', {
   description: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
+  creator:Sequelize.STRING
 });
 
 module.exports = Trek;

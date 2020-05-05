@@ -2,9 +2,11 @@
 <html>
 
 <head>
-    <title>Angel's Rest </title>
+    <title>TrekAdvisor</title>
     <link rel="stylesheet" href="/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/forms.css">
+
 </head>
 
 <body>
@@ -13,8 +15,16 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">TrekAdvisor</a> </div>
             <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                   
+                <ul class="nav navbar-nav navbar-right nav-tabs">
+                    <%if(!currentUser)
+                    {%>
+                        <li role="presentation"><a href="/register">Sign Up</a></li>
+                        <li role="presentation"><a href="/login">Login</a></li>
+                        <%}
+                            else{%>
+                            <li role="presentation" class="active"><a href="#">Signed In As <%=currentUser.username%></a></li>
+                            <li role="presentation"> <a href="/logout">Logout</a> </li>
+                            <%}%>
                 </ul>
             </div>
         </div>

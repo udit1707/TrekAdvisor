@@ -5,7 +5,8 @@ var express = require("express"),
     Trek=require('./models/trek'),
     User=require('./models/user'),
     Comment=require('./models/comment'),
-    
+    moment=require('moment');
+    flash = require("connect-flash");    
     TrekComm=require('./models/trek-comm');
     const session=require('express-session');
     var SequelizeStore = require('connect-session-sequelize')(session.Store);    // flash = require("connect-flash");
@@ -19,8 +20,8 @@ var commentRoutes = require("./routes/comments"),
 //     resave: false,
 //     saveUninitialized: false
 // }));
-// app.use(flash());
- app.use(methodOverride("_method"));
+
+
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,6 +37,7 @@ app.use(session({secret:'my secret'
   })
 }));
 
+app.use(methodOverride("_method"));
 
 app.use((req,res,next)=>{
     res.locals.isAuthenticated=req.session.isLoggedIn;
@@ -55,6 +57,7 @@ app.use((req,res,next)=>{
             return next();
         }
         req.user=user;
+             
         next();
     })
     .catch(err=>{
@@ -96,8 +99,8 @@ User.hasMany(Comment);
 
 
 sequelize.
- //sync({force:true}).
- sync().
+ sync({force:true}).
+ //sync().
  then(result=>{
      console.log(result);
      app.listen(2900);

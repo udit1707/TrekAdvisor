@@ -36,25 +36,25 @@ body {
     background-repeat: no-repeat;
     opacity: 0;
     z-index: 0;
-    animation: imageAnimation 50s linear infinite;
+    animation: imageAnimation 60s linear infinite;
 }
 
 .slideshow li:nth-child(1) {
-    background-image: url(http://i.imgur.com/K3mPv14.jpg)
+    background-image: url(https://images.unsplash.com/photo-1459445364195-16475050193c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1245&q=80)
 }
 
 .slideshow li:nth-child(2) {
-    background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+    background-image: url(https://images.unsplash.com/photo-1498503603722-8de8df0beb96?ixlib=rb-1.2.1&auto=format&fit=crop&w=753&q=80);
     animation-delay: 10s;
 }
 
 .slideshow li:nth-child(3) {
-    background-image: url(http://i.imgur.com/emvhOnb.jpg);
+    background-image: url(https://images.unsplash.com/photo-1571860120835-a59899963df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80.imgur.com/emvhOnb.jpg);
     animation-delay: 20s;
 }
 
 .slideshow li:nth-child(4) {
-    background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+    background-image: url(https://images.unsplash.com/photo-1584830686607-fbd14e47b225?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
     animation-delay: 30s;
 }
 
@@ -62,6 +62,11 @@ body {
     background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
     animation-delay: 40s;
 }
+.slideshow li:nth-child(6) {
+    background-image: url(https://images.wallpaperscraft.com/image/mountain_peak_tourists_148482_3840x2400.jpg);
+    animation-delay: 50s;
+}
+
 
 @keyframes imageAnimation {
     0% {

@@ -1,4 +1,5 @@
 var express = require("express");
+var moment=require('moment');
 var router = express.Router({ mergeParams: true });
 var Comment = require("../models/comment");
 var Trek = require("../models/trek");
@@ -6,11 +7,12 @@ var middleware = require("../middleware/index.js");
 
 
 router.get("/new"
-//, middleware.isLoggedIn
+, middleware.isLoggedIn
 , function(req, res,next) {
     Trek.findAll({where:{id:req.params.id}})
     .then(treks=>{
-        res.render("comments/new", { trek: treks[0] }); 
+        res.render("comments/new", { trek: treks[0] ,
+            currentUser: req.user }); 
     })
     .catch(err=>{
         console.log(err);
@@ -18,11 +20,11 @@ router.get("/new"
 
 });
 router.post("/", 
-//middleware.isLoggedIn,
+middleware.isLoggedIn,
  function(req, res) {
      const trekId=req.params.id;
      const text=req.body.text;
-        req.user.createComment({text:text})
+        req.user.createComment({text:text,creator:req.user.username,createdAt:new Date().toISOString()})
         .then(comment=>{
             return Trek.findByPk(trekId)
             .then(trek=>{
@@ -30,6 +32,7 @@ router.post("/",
             }).
             catch(err=>{
                 console.log(err);
+                res.redirect("/");
             });
         })
         .then(result=>{
@@ -64,11 +67,12 @@ router.post("/",
 
 //Edit
 router.get("/:commentId/edit",
- //middleware.checkCommentOwnership,
+ middleware.checkCommentOwnership,
   function(req, res) {
       req.user.getComments({where:{id:req.params.commentId}})
     .then(comments=>{
-        res.render("comments/edit", { trekId: req.params.id, comment: comments[0] });
+        res.render("comments/edit", { trekId: req.params.id, comment: comments[0],
+            currentUser: req.user  });
 
     })
     .catch(err=>{
@@ -80,12 +84,12 @@ router.get("/:commentId/edit",
 
 
 });
-router.put("/:comment_id",
-//middleware.checkCommentOwnership, 
+router.put("/:commentId",
+middleware.checkCommentOwnership, 
 function(req, res) {
     var updatedText=req.body.text;
 
-    Comment.findByPk(req.params.comment_id)
+    Comment.findByPk(req.params.commentId)
     .then(comment=>{
         comment.text=updatedText;
         return comment.save();
@@ -97,10 +101,10 @@ function(req, res) {
         console.log(err);
     });
 });
-router.delete("/:comment_id",
- //middleware.checkCommentOwnership, 
+router.delete("/:commentId",
+ middleware.checkCommentOwnership, 
  function(req, res) {
-    Comment.findByPk(req.params.comment_id)
+    Comment.findByPk(req.params.commentId)
     .then(comment=>{
         return comment.destroy();
     })
@@ -115,12 +119,12 @@ router.delete("/:comment_id",
 
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect("/login");
+// function isLoggedIn(req, res, next) {
+//     if (req.isAuthenticated())
+//         return next();
+//     res.redirect("/login");
 
-}
+// }
 
 
 module.exports = router;
