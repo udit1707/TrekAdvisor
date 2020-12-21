@@ -4,13 +4,13 @@
             <h1 style="text-align: center;">ADD NEW COMMENT </h1>
             <div style="width: 30%; margin:25px auto ">
                 <form method="POST" action="/treks/<%=trek.id%>/comments">
-                    <div class="form-group"> <input class="form-control" type="text" name="text" placeholder="text"></div>
+                    <div class="form-group"> <input class="form-control" required=True type="text" name="text" placeholder="text"></div>
 
 
 
                     <div class="form-group"><button class="btn btn-lg btn-default btn-block btn-primary">Submit Review!</button></div>
                 </form>
-                <a href="/treks">GO Back!!</a>
+                <div class="form-group"><a class="btn btn-lg btn-default btn-block btn-primary" href="/treks">GO BACK!</a></div>
             </div>
 
 

@@ -3,16 +3,24 @@
     "version": "1.0.0",
     "description": "YelpCamp ",
     "main": "app.js",
+    "engines": {
+        "node": "12.16.1"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon app.js",
-        "start-server": "node app.js"
+        "start-server": "node app.js",
+        "start:dev": "nodemon app.js",
+        "scss": "node-sass --watch public/stylesheets/stars.scss -o public/stylesheets/"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "axios": "^0.21.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
+        "compass-mixins": "^0.12.10",
+        "compression": "^1.7.4",
         "connect-flash": "^0.1.1",
         "connect-session-sequelize": "^6.1.1",
         "csurf": "^1.11.0",
@@ -20,10 +28,14 @@
         "express": "^4.17.1",
         "express-session": "^1.16.2",
         "express-validator": "^6.4.0",
+        "fast-csv": "^4.3.6",
+        "helmet": "^3.22.0",
         "method-override": "^3.0.0",
         "moment": "^2.25.3",
         "mongoose": "^5.6.9",
+        "morgan": "^1.10.0",
         "mysql2": "^2.1.0",
+        "node-sass": "^5.0.0",
         "nodemailer": "^6.4.6",
         "nodemailer-sendgrid-transport": "^0.2.0",
         "nodemon": "^1.19.1",

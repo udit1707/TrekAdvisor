@@ -6,15 +6,14 @@
     <link rel="stylesheet" href="/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/main.css">
     <link rel="stylesheet" href="/stylesheets/forms.css">
-
-    
+    <link rel="icon" href="/stylesheets/trekking.ico">
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">TrekAdvisor</a> </div>
+                <a class="navbar-brand" href="/treks">TrekAdvisor</a> </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                 </ul>
@@ -26,17 +25,18 @@
    
     <div class="container">
         <div class="row">
-            <h1 style="text-align: center;">TREK REGISTRATION PORTAL!!</h1>
+            <h1 style="text-align: center;">TREK REGISTRATION</h1>
             <div style="width: 30%; margin:25px auto ">
                 <form method="POST" action="/treks">
-                    <div class="form-group"> <input class="form-control" type="text" name="name" placeholder="name"></div>
-                    <div class="form-group"> <input class="form-control" type="number" name="price" placeholder="price" min="0.01" step="0.01"></div>
-
-                    <div class="form-group"><input class="form-control" type="text" name="image" placeholder="image url"></div>
-                    <div class="form-group"><input class="form-control" type="text" name="description" placeholder="description"></div>
-                    <div class="form-group"><button class="btn">Add Trek!</button></div>
+                    <div class="form-group"> <input class="form-control" required type="text" name="name" placeholder="Name"></div>
+                    <div class="form-group col-md-6" style="padding-right: 2px;padding-left: 0px;"> <input class="form-control" required type="number" name="price" placeholder="Price" min="0.01" step="0.01"></div>
+                    <div class="form-group col-md-6" style="padding-right: 0px;padding-left: 2px;"><input class="form-control" required type="text" name="location" placeholder="Location"></div>
+                    <div class="form-group"><input class="form-control" required type="text" name="image" placeholder="Image URL"></div>
+                    <textarea class="form-control" style="overflow-y: scroll;" type="text" required name="description" placeholder="Description"></textarea>>
+                    <div class="form-group"><button class="btn-lg btn-default btn-block btn-primary">Add Trek!</button></div>
+                    <hr>
                 </form>
-                <a href="/treks">Go Back!!</a>
+                <div class="form-group"><a class="btn btn-lg btn-default btn-block btn-primary" href="/treks">GO BACK!</a></div>
             </div>
 
 

@@ -9,7 +9,7 @@ const Comment=sequelize.define('comment',{
             allowNull: false,
             primaryKey: true
           },
-    text:Sequelize.STRING,
+    text:Sequelize.TEXT,
     creator:Sequelize.STRING,
     createdAt:Sequelize.STRING
 });

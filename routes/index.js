@@ -2,16 +2,8 @@ var express = require("express");
 const{check,body} =require('express-validator');
 const {validationResult}=require('express-validator/check');
 const bcrypt=require('bcryptjs');
-const nodemailer=require('nodemailer');
-const sendgridTransport=require('nodemailer-sendgrid-transport');
 const router = express.Router();
 const User = require("../models/user");
-
-const transporter=nodemailer.createTransport(sendgridTransport({
-    auth:{
-      api_key: /*enter the api key*/
-    }
-  }));
 
 
 router.get("/", function(req, res) {
@@ -63,13 +55,7 @@ router.post("/register",[
          return User.create({ email:email, username: username , password:hashedPassword });})
     .then(result=>{
           console.log(result);
-         res.redirect('/login');
-          return transporter.sendMail({
-            to: email,
-            from:'uditsingh294@gmail.com',
-            subject:'Signup Success',
-            html:'<h1>Sign Up Successfull!!</h1>'
-          });       
+         return res.redirect('/login');          
          })
          .catch(err=>{
              console.log(err);
@@ -113,7 +99,7 @@ const errors=validationResult(req);
      
      if(!user)
      {
-         console.log("################Error in credentials###############");
+        //  console.log("################Error in credentials###############");
          return res.redirect('/login');
      }
      foundUser=user;
@@ -144,7 +130,7 @@ const errors=validationResult(req);
 router.get('/logout', function(req,res){
     req.session.destroy((err)=>{
         console.log(err);
-        res.redirect('/login');
+        res.redirect('/treks');
    
       })
 });

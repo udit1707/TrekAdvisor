@@ -15,13 +15,22 @@ const Trek = sequelize.define('trek', {
     type: Sequelize.DOUBLE,
     allowNull: false
   },
+  location: Sequelize.STRING,
   image: {
     type: Sequelize.STRING,
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
+  },
+  mean_rating:{
+    type:Sequelize.DOUBLE,
+    defaultValue: 0.0
+  },
+  count_ratings:{
+     type:Sequelize.INTEGER,
+     defaultValue:0
   },
   creator:Sequelize.STRING
 });

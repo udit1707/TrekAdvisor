@@ -1,48 +1,52 @@
 <%include ../partials/header%>
     <div class="container">
-        <div class="row">
+        <div class="row row-eq-height">
             <div class="col-md-3">
-                <p class="lead">Yelp Camp</p>
+                <p class="lead">TrekAdvisor™</p>
                 <div class="list-group">
-                    <li class="list-group-item active">Info 1</li>
-                    <li class="list-group-item">Info 2</li>
-                    <li class="list-group-item">Info 3</li>
-
+                    <li class="list-group-item active"><i class="fas fa-map-signs"></i>      <%=trek.location%></li>
+                    <li class="list-group-item">
+                        <!-- <img src="https://drive.google.com/uc?export=download&id=16yOBV3wDjCZNon2AkzIHzukOrXP5egwF"> -->
+                        <i class="fas fa-user-secret"></i>      Captured By, <%=trek.creator%></li>
+                    <li class="list-group-item"><i class="far fa-star"></i> <%=trek.mean_rating.toFixed(1)%></li>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
                     <img src="<%=trek.image%>" class="img-responsive">
                     <div class="caption-full">
-                        <h4 class="pull-right ">
+                        <h3 style="font-size: 3rem;" class="pull-right ">
                             $<%= trek.price %>/-
-                        </h4>
-                        <h4>
-                            <a href="#">
-                                <%=trek.name%>
-                            </a>
-                        </h4>
-                        <p>
-                            <%=trek.description%>
-                        </p>
+                        </h3>
+                        <h3 style="font-size: 3rem;"><%=trek.name%></h3>
+                        <p style="font-family: 'Do Hyeon', sans-serif;font-size: 1.8rem;font-weight: normal;"><%=trek.description%></p>
+                        
                         <hr>
-                        <p><em>Submitted by</em>
-                            <%=trek.creator%>
-                        </p>
-                        <%if(currentUser && trek.userId === currentUser.id){%>
-                            <a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/edit">Edit</a>
-                            <form class="deleteForm" action="/treks/<%=trek.id%>?_method=DELETE" method="POST">
-                                <input type="hidden" name="trekId" value="<%=trek.id%>">                                   
-                                <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                            </form>
-                            <%}%>
-
-                        </div>
-                            
+                        <%if(currentUser){%>
+                            <form id="form-id" method="POST" action="/treks/<%=trek.id%>/ratings">
+                                  <span class="star-cb-group">
+                                    <input type="radio" id="rating-5" name="rating" value="5"  <%if(rating==5){%><%="checked"%><%}%> onClick="document.getElementById('form-id').submit();" /><label for="rating-5">5</label>
+                                    <input type="radio" id="rating-4" name="rating" value="4" <%if(rating==4){%><%="checked"%><%}%> onClick="document.getElementById('form-id').submit();" /><label for="rating-4">4</label>
+                                    <input type="radio" id="rating-3" name="rating" value="3" <%if(rating==3){%><%="checked"%><%}%> onClick="document.getElementById('form-id').submit();"/><label for="rating-3">3</label>
+                                    <input type="radio" id="rating-2" name="rating" value="2" <%if(rating==2){%><%="checked"%><%}%> onClick="document.getElementById('form-id').submit();"/><label for="rating-2">2</label>
+                                    <input type="radio" id="rating-1" name="rating" value="1" <%if(rating==1){%><%="checked"%><%}%> onClick="document.getElementById('form-id').submit();"/><label for="rating-1">1</label>
+                                    <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" onClick="document.getElementById('form-id').submit();"/><label for="rating-0"></label>
+                                  </span>
+                              </form>
+                              <%}%>
+                        </div>                            
                     </div>
                             <div class="well">
-                                <div class="text-right">
+                                <i style="font-size: 35px;" class="far fa-comment-alt"></i>
+                                <div class="pull-right">
                                     <a href="/treks/<%=trek.id%>/comments/new" class="btn btn-success">Leave a Review</a>
+                                    <%if(currentUser && trek.userId === currentUser.id){%>
+                                        <a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/edit">Edit</a>
+                                        <form class="deleteForm" action="/treks/<%=trek.id%>?_method=DELETE" method="POST">
+                                            <input type="hidden" name="trekId" value="<%=trek.id%>">                                   
+                                            <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                                        </form>
+                                        <%}%>
                                 </div>
                                 <hr>
                               
@@ -50,17 +54,17 @@
                                 {%>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <strong><%=comments[i].creator%></strong>
+                                            <strong style="font-size: 1.2rem;"><i class="far fa-user"></i>  <%=comments[i].creator%></strong>
                                             <span class="pull-right"><%=moment(comments[i].createdAt).fromNow()%></span>
-                                            <p>
+                                            <p style="font-family: 'Indie Flower', cursive;font-size:2rem;">
                                                 <%=comments[i].text%>
                                             </p>
                                             <%if(currentUser && comments[i].userId === currentUser.id){%>
-
-                                                 <a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/comments/<%=comments[i].id%>/edit">Edit</a>
-                                                <form class="deleteForm" action="/treks/<%= trek.id %>/comments/<%=comments[i].id %>?_method=DELETE" method="POST">
-                                                    <button class="btn btn-xs btn-danger">Delete</button>
-                                                </form>
+                                                <div class="pull-right"><a class="btn btn-xs btn-warning" href="/treks/<%=trek.id%>/comments/<%=comments[i].id%>/edit">Edit</a>
+                                                    <form class="deleteForm" action="/treks/<%= trek.id %>/comments/<%=comments[i].id %>?_method=DELETE" method="POST">
+                                                        <button class="btn btn-xs btn-danger">Delete</button>
+                                                    </form></div>
+                                                 
                                                 <%}%>
                                         </div>
                                     </div>

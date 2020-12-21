@@ -1,0 +1,78 @@
+@import "../../node_modules/compass-mixins/lib/compass/css3";
+
+$unchecked-star: '\2606';
+$checked-star: '\2605';
+
+.star-cb-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  * {
+    font-size: 2rem;
+  }
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  & > input {
+    display: none;
+    & + label {
+      /* only enough room for the star */
+      display: inline-block;
+      overflow: hidden;
+      text-indent: 9999px;
+      width: 1em;
+      white-space: nowrap;
+      cursor: pointer;
+      &:before {
+        display: inline-block;
+        text-indent: -9999px;
+        content: $unchecked-star;
+        color: #4ca099fd;
+      }
+    }
+    &:checked ~ label:before,
+      & + label:hover ~ label:before,
+      & + label:hover:before {
+      content: $checked-star;
+      color: #4ca099fd;
+      text-shadow: 0 0 1px #333;
+    }
+  }
+  
+  /* the hidden clearer */
+  & > .star-cb-clear + label {
+    text-indent: -9999px;
+    width: .5em;
+    margin-left: -.5em;
+  }
+  & > .star-cb-clear + label:before {
+    width: .5em;
+  }
+
+  &:hover > input + label:before {
+    content: $unchecked-star;
+    color: #4ca099fd;
+    text-shadow: none;
+  }
+  &:hover > input + label:hover ~ label:before,
+  &:hover > input + label:hover:before {
+    content: $checked-star;
+    color: #4ca099fd;
+    text-shadow: 0 0 1px #333;
+  }
+}
+
+// extra styles
+// :root {
+//   font-size: 2em;
+//   font-family: Helvetica, arial, sans-serif;
+// }
+
+// .fieldset-star {
+//   border: 0;
+//   background: #f5f5f5;
+//   width: 5em;
+//   border-radius: 1px;
+//   padding: 1em 1.5em 0.9em;
+//   margin: 1em auto;
+// }
+

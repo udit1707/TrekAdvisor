@@ -3,17 +3,23 @@
 
 <head>
     <title>TrekAdvisor</title>
+    <link href='https://fonts.googleapis.com/css?family=Barrio' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap.css">
+    <link rel="icon" href="/stylesheets/trekking.ico">
     <link rel="stylesheet" href="/stylesheets/main.css">
     <link rel="stylesheet" href="/stylesheets/forms.css">
-
+    <link rel="stylesheet" href="/stylesheets/stars.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">TrekAdvisor</a> </div>
+                <a class="navbar-brand" href="/treks">TrekAdvisor</a> </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right nav-tabs">
                     <%if(!currentUser)
@@ -23,6 +29,7 @@
                         <%}
                             else{%>
                             <li role="presentation" class="active"><a href="#">Signed In As <%=currentUser.username%></a></li>
+                            <li role="presentation"><a href="/treks/recommen">Your Recommendations!</a></li>
                             <li role="presentation"> <a href="/logout">Logout</a> </li>
                             <%}%>
                 </ul>

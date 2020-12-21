@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TrekAdvisor Recommends</title>
+        <link href='https://fonts.googleapis.com/css?family=Barrio' rel='stylesheet'>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="/bootstrap.css"> 
+        <link rel="icon" href="/stylesheets/trekking.ico">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+        </head>
+          <body class="recomB">
+            <nav class="navbar navbar-default" style="margin-bottom: 0px;">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="/treks">TrekAdvisor</a> </div>
+                  <div class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav navbar-right nav-tabs">
+                          <%if(!currentUser)
+                          {%>
+                              <li role="presentation"><a href="/register">Sign Up</a></li>
+                              <li role="presentation"><a href="/login">Login</a></li>
+                              <%}
+                                  else{%>
+                                  <li role="presentation" class="active"><a href="#">Signed In As <%=currentUser.username%></a></li>
+                                  <li role="presentation" class="active"><a href="/treks/recommen">Your Recommendations!</a></li>
+                                  <li role="presentation"> <a href="/logout">Logout</a> </li>
+                                  <%}%>
+                      </ul>
+                  </div>
+              </div>      
+          </nav>
+
+            
+          
+              <!-- Wrapper for slides -->
+              <div class="container">
+              <header class="jumbotron" style="background-color: transparent; padding-left: 0px;padding-right: 0px;">
+              <%if("image" in treks)
+              {%>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height:450px; width: 100%;">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <%for(let i=1;i<treks["image"].length;i++)
+                  {%>                  
+                  <li data-target="#carousel-example-generic-default" data-slide-to="<%=i%>"></li>
+                  <%}%>
+                  </ol>
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <img src="<%=treks.image[0]%>">
+                    <div class="carousel-caption">
+                      <h3><a style="font-family: 'Indie Flower', cursive;font-size:6rem;color:azure;" href="/treks/<%=treks.id[0]%>"><%=treks.name[0]%></a></h3>
+                      <div class="trickcenter"  style="font-family: 'Do Hyeon', sans-serif;font-size: 1.8rem;font-weight: normal;"><p><i class="fa fa-plane" aria-hidden="true"></i> Recommended</p></div>
+                    </div>
+                  </div>
+                 <%for(let i=1;i<treks["image"].length;i++)
+                 {%>
+                  <div class="item">
+                    <img src="<%=treks.image[i]%>" >
+                    <div class="carousel-caption">
+                      <h3 ><a style="font-family: 'Indie Flower', cursive;font-size:6rem;color:azure;" href="/treks/<%=treks.id[i]%>"><%=treks.name[i]%></a></h3>
+                      <div class="trickcenter"  style="font-family: 'Do Hyeon', sans-serif;font-size: 1.8rem;font-weight: normal;"><p><i class="fa fa-plane" aria-hidden="true"></i> Recommended</p></div>
+                    </div>
+                  </div>
+                 <%}%>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <%}
+              else
+              {
+                if(top.length!=0)
+                {%>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height:450px;">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="https://unsplash.com/photos/utG-uy8eP5E/download?force=true">
+                      <div class="carousel-caption">
+                        <h3 class='clipR' style="font-family: 'Indie Flower', cursive;font-size:4rem;color:azure;">No Recommendations Found !!?</h3>
+                        <h4 style="font-family: 'Indie Flower', cursive;font-size:3rem;color:azure;"> Stay on Trek. Keep Rating!</h4>
+                      </div>
+                    </div>                
+                </div>
+                </div>
+              <%}
+              }%>
+            </header>               
+             <%if(top.length>0)
+             {%> 
+              <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+                <%for(var i=0;i<top.length;i++)
+                {%>
+                   <div class="col-md-4 col-sm-6">
+                    <div class="thumbnail animation"><img style="object-fit: cover;height:225px;" src="<%=top[i].image%>">
+                        <div class="trickcenter2"  style="font-family: 'Do Hyeon', sans-serif;color:rgba(83, 73, 14, 0.76);font-size: 1.4rem;font-weight: normal;"><i class="fa fa-trophy" aria-hidden="true"></i> Top Rated</div>
+                        <div clas="caption">
+                          <h3 class="clipR"><a style="font-family: 'Indie Flower', cursive;font-size:3rem;" href="/treks/<%=top[i].id%>"><%=top[i].name%></a></h3>
+                        </div>
+                    </div>
+                 </div>                
+                <%}%>
+              </div>
+              <!-- <div id="carousel-example-generic-default" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic-default" data-slide-to="0" class="active"></li>
+                  <%for(let i=1;i<top.length;i++)
+                  {%>                  
+                  <li data-target="#carousel-example-generic-default" data-slide-to="<%=i%>"></li>
+                  <%}%>
+                </ol>
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="<%=top[0].image%>">
+                  <div class="carousel-caption">
+                    <h3><a style="font-family: 'Indie Flower', cursive;font-size:7rem;color:azure;" href="/treks/<%=top[0].id%>"><%=top[0].name%></a></h3>
+                    <div class="trickcenter2"  style="font-family: 'Do Hyeon', sans-serif;font-size: 1.8rem;font-weight: normal;"><i class="fa fa-trophy" aria-hidden="true"></i> Top Rated</div>
+                  </div>
+                </div>
+               <%for(let i=1;i<top.length;i++)
+               {%>
+                <div class="item">
+                  <img src="<%=top[i].image%>" >
+                  <div class="carousel-caption">
+                    <h3 ><a style="font-family: 'Indie Flower', cursive;font-size:7rem;color:azure;" href="/treks/<%=top[i].id%>"><%=top[i].name%></a></h3>
+                   <div class="trickcenter2"  style="font-family: 'Do Hyeon', sans-serif;font-size: 1.8rem;font-weight: normal;"><i class="fa fa-trophy" aria-hidden="true"></i> Top Rated</div>
+                  </div>
+                </div>
+               <%}%>
+              </div>
+              <a class="left carousel-control" href="#carousel-example-generic-default" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic-default" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+          </div> -->
+        <%}
+        if(!("image" in treks) && top.length==0)
+        {%>
+            <header class="jumbotron">
+                <div class="container">
+                    <h1><i class="fas fa-exclamation-triangle"></i>   Recommendations Empty</h1>
+                     <p>
+                        <a class="btn btn-primary btn-lg" href="/treks/new">Add New Trekking Spot</a>
+                   </p>
+                </div>
+            </header>
+        <%}%>
+        <div class="container">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<% include ../partials/footer.ejs%>
+

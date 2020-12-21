@@ -1,25 +1,39 @@
 var express = require("express"),
     app = express(),
+    fs=require('fs'),
+    path=require('path'),
     bodyParser = require("body-parser"),
     sequelize=require('./util/database'),
     Trek=require('./models/trek'),
     User=require('./models/user'),
     Comment=require('./models/comment'),
+    Rating=require('./models/rating'),
+    TrekRating=require('./models/trek-rating');
     moment=require('moment');
     flash = require("connect-flash");    
     TrekComm=require('./models/trek-comm');
     const session=require('express-session');
     var SequelizeStore = require('connect-session-sequelize')(session.Store);    // flash = require("connect-flash");
      methodOverride = require("method-override");
+     const helmet=require('helmet');
+const compression=require('compression');
+const morgan=require('morgan');
 
 var commentRoutes = require("./routes/comments"),
     trekRoutes = require("./routes/treks"),
+    ratingRoutes=require('./routes/ratings'),
     authRoutes = require("./routes/index");
+const UserRating = require("./models/trek-rating");
 // app.use(require("express-session")({
 //     secret: "Batshit crazy turbocharged-twat",
 //     resave: false,
 //     saveUninitialized: false
 // }));
+const accessLogStream=fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'});
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined',{stream:accessLogStream}));
 
 
 
@@ -90,20 +104,25 @@ app.use("/", authRoutes);
 app.use("/treks", trekRoutes);
 app.use("/treks/:id/comments",
      commentRoutes);
+app.use("/treks/:id/ratings",
+     ratingRoutes);
+
 
 Trek.belongsTo(User,{constraints:true,onDelete:'CASCADE'});
 User.hasMany(Trek);
 Trek.belongsToMany(Comment,{through:TrekComm});
 User.hasMany(Comment);
+Trek.belongsToMany(Rating,{through:TrekRating});
+User.hasMany(TrekRating);
 
 
 
 sequelize.
- sync({force:true}).
- //sync().
+//sync({force:true}).
+sync().
  then(result=>{
      console.log(result);
-     app.listen(2900);
+     app.listen(process.env.PORT || 3000);
  })
 .catch(err=>{console.log(err);});
 
