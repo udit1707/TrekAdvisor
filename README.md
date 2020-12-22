@@ -7,7 +7,7 @@
 - CSS
 - Bootstrap3
 - SQLAlchemy
-- MySQL
+- Sequelize
 - Heroku
 
 # Walkthrough
